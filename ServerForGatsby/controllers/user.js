@@ -32,9 +32,8 @@ router.get('/login', function(req, res){
  
 
 router.get('/logout', function(req, res){
-    req.session.destroy(function (err) {
-        res.redirect('/'); 
-      });
+    req.logout();
+    res.redirect("/")
 });
 
 
@@ -47,9 +46,10 @@ router.post('/login', passport.authenticate('local.login', {
 module.exports = router;
 
 function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()){
-        return next();
-    }
+    // if(req.isAuthenticated()){
+    //     return next();
+    // }
+    if(req.user){return next()}
 
     res.redirect('/login');
 }

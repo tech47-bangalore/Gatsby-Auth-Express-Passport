@@ -3,6 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var dburi = require('./config/mongodburi')
 var mongoose = require('mongoose');
 var passport = require('passport');
 var MongoStore = require('connect-mongo')(session);
@@ -10,7 +11,9 @@ var flash = require('express-flash');
 
 var app = express();
 
-mongoose.connect('mongodb://localhost/passportlocalagain');
+mongoose.connect(bduri.mongodb.dbURI, () => {
+	console.log('connect to mongodb')
+});
 
 var user = require('./controllers/user');
 
